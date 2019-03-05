@@ -22,7 +22,7 @@ This project must be run from the command line. It takes no arguments.
     $ java -jar bank-machine-0.1.0-standalone.jar
 
 
-### Future Enhancements:
+## Future Enhancements:
 
  - Implementing a comprehensive test battery
  - Allowing users to supply thier own bank machine files for processing
