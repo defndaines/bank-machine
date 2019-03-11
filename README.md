@@ -11,21 +11,36 @@ http://codingdojo.org/kata/BankOCR/#problem-description
 
 ## Installation
 
-This app assumes that java is already installed on your machine.
-Download the standalone jar file from the source code.
-It is located here: target/uberjar/bank-machine-0.1.0-standalone.jar.
+This app assumes that java and leiningen are already installed on your machine.
+Simply clone the repo using git or download the project in a zip file from GitHub.
 
 ## Usage
 
 This project must be run from the command line. It takes no arguments. 
 
-    $ java -jar bank-machine-0.1.0-standalone.jar
+    $ lein run
+    
+If you wish to run the project using your own resource file containing machine drawings
+of account numbers, please copy/paste the text of your file into the project file,
+/resources/files/machine_file.txt. (Please keep the file name the same.)
 
+Then run the following to ensure proper formatting has been maintained in this file:
 
-## Future Enhancements:
+    $ lein test
+    
+The proper formatting is as follows:
+ - each line is 27 chars long
+ - each line contains only spaces, underscores, and pipe characters; except every 4th line
+ - each 4th line is blank
+ - an empty line must be the last line in the file (following a preceding empty 4th line)
+ 
+Make alterations to this file until all tests pass. Then you can run the project using the same
+run command mentioned above.
 
- - Implementing a comprehensive test battery
- - Allowing users to supply thier own bank machine files for processing
+## Possible Future Enhancements:
+
+ - Implement batch processing of machine files, which would allow users to add their own bank
+ machine files in the resource folder for processing as many files as they like. 
  
 
 ## License
