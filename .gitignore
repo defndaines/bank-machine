@@ -8,5 +8,4 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
-/target/uberjar/classes
-/target/uberjar/stale
+/target
