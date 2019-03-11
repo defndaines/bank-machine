@@ -191,13 +191,13 @@
 
 
 ;; Test Data Processing & Evaluation Functions:    -------------------------------------------
-;;  - Note: These tests are using the test file, /resources/files/test/test_machine_file.txt,
+;;  - Note: These tests are using the test file, /test/files/test_machine_file.txt,
 ;;      because these tests depend on a consistent unchanged resource so that known expected 
 ;;      values can be utilized during evaluation.
 
 (deftest test-determine-number-from-digit-parts
   (testing "Make sure the right number is assigned to the 3 digit-parts that up a whole digit:"
-    (def test-path (io/resource "files/test/test_machine_file.txt"))
+    (def test-path (io/file "test/files/test_machine_file.txt"))
     (def test-contents (get-file-contents test-path))
     (def test-accounts (group-contents-into-account-line-collections test-contents))
     (def test-all-account-digit-parts-collections (make-batch-of-account-digit-parts-collections test-accounts))
@@ -326,7 +326,7 @@
 
 (deftest test-determine-account-number-from-digit-part-collection
   (testing "Make sure the right account number is assigned to the digit-part-collection:"
-    (def test-path (io/resource "files/test/test_machine_file.txt"))
+    (def test-path (io/file "test/files/test_machine_file.txt"))
     (def test-contents (get-file-contents test-path))
     (def test-accounts (group-contents-into-account-line-collections test-contents))
     (def test-all-account-digit-parts-collections (make-batch-of-account-digit-parts-collections test-accounts))
@@ -367,7 +367,7 @@
 
 (deftest test-determine-account-numbers-from-batch-of-digit-part-collections
   (testing "Make sure the right account number is assigned to all digit-part-collections in a batch:"
-    (def test-path (io/resource "files/test/test_machine_file.txt"))
+    (def test-path (io/file "test/files/test_machine_file.txt"))
     (def test-contents (get-file-contents test-path))
     (def test-accounts (group-contents-into-account-line-collections test-contents))
     (def test-all-account-digit-parts-collections (make-batch-of-account-digit-parts-collections test-accounts))
@@ -397,7 +397,7 @@
 
 (deftest test-illegible-digits-in-account-number?
   (testing "Make sure true or false are accurately returned to indicate the presence of illegible digits in an account number:"
-    (def test-path (io/resource "files/test/test_machine_file.txt"))
+    (def test-path (io/file "test/files/test_machine_file.txt"))
     (def test-contents (get-file-contents test-path))
     (def test-accounts (group-contents-into-account-line-collections test-contents))
     (def test-all-account-digit-parts-collections (make-batch-of-account-digit-parts-collections test-accounts))
@@ -427,7 +427,7 @@
 
 (deftest test-check-checksum
   (testing "Make sure 'Valid', 'Invalid Checksum', or 'Illegible' are accurately assigned to an account number:"
-    (def test-path (io/resource "files/test/test_machine_file.txt"))
+    (def test-path (io/file "test/files/test_machine_file.txt"))
     (def test-contents (get-file-contents test-path))
     (def test-accounts (group-contents-into-account-line-collections test-contents))
     (def test-all-account-digit-parts-collections (make-batch-of-account-digit-parts-collections test-accounts))
@@ -506,7 +506,7 @@
 
 (deftest test-validate-batch-of-account-numbers
   (testing "Make sure all account numbers in the batch get evaluated properly:"
-    (def test-path (io/resource "files/test/test_machine_file.txt"))
+    (def test-path (io/file "test/files/test_machine_file.txt"))
     (def test-contents (get-file-contents test-path))
     (def test-accounts (group-contents-into-account-line-collections test-contents))
     (def test-all-account-digit-parts-collections (make-batch-of-account-digit-parts-collections test-accounts))
