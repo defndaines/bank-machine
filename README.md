@@ -6,8 +6,12 @@ Bank Machine is a clojure app that does the following:
  - analyzes the validity of those translations, and
  - displays the results to the user.
 
-It is based on the Bank OCR coding kata here:
-http://codingdojo.org/kata/BankOCR/#problem-description 
+It is based on the Bank OCR coding kata User Stories 1 & 2 (& User Story 3 as Bonus) here:
+http://codingdojo.org/kata/BankOCR/#problem-description
+
+Bonus User Story 3 writes out to the console instead of to a file. And instead of 'ERR' and 'ILL',
+more human readable words were used for better user experience - like 'Invalid Checksum' and
+'Illegible'.
 
 ## Installation
 
@@ -24,9 +28,9 @@ If you wish to run the project using your own resource file containing machine d
 of account numbers, please copy/paste the text of your file into the project file,
 /resources/files/machine_file.txt. (Please keep the file name the same.)
 
-Then run the following to ensure proper formatting has been maintained in this file:
+It is recommended to perform the following test to ensure proper formatting has been maintained in this file:
 
-    $ lein test
+    $ lein test bank-machine.content-test
     
 The proper formatting is as follows:
  - each line is 27 chars long
@@ -34,7 +38,7 @@ The proper formatting is as follows:
  - each 4th line is blank
  - an empty line must be the last line in the file (following a preceding empty 4th line)
  
-Make alterations to this file until all tests pass. Then you can run the project using the same
+Make alterations to this file until all tests pass. Then run the project using the same
 run command mentioned above.
 
 ## Possible Future Enhancements:
