@@ -1,11 +1,11 @@
 ;; Rachelle Pinckney
-;; COMPLETED SOLUTION FOR PARTS 1 & 2 (and 3 as Bonus)
-;; Note: For Part 3, the system pipes out to the console instead of to a file.
+;; COMPLETED SOLUTION FOR PARTS 1, 2, & 3
 
 (ns bank-machine.core
   (:gen-class)
   (:require [bank-machine.content :refer :all]
             [bank-machine.analysis :refer :all]
+            [bank-machine.deliverables :refer :all]
             [clojure.java.io :as io :refer [resource]]
             [clojure.string :as str :refer [join]]
   )
@@ -65,4 +65,8 @@
   (println "The validation results for each account number are:")
   (def all-account-numbers-with-validation (validate-batch-of-account-numbers all-account-numbers))
   (print-account-numbers-with-validation all-account-numbers-with-validation)
+  
+  (export-to-file-account-numbers-with-validation all-account-numbers-with-validation)
+  (println "These results have also been exported to /results/results_file.txt for your convenience. :)")
+  
 )
