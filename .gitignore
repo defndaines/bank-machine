@@ -9,4 +9,3 @@ pom.xml.asc
 .hgignore
 .hg/
 /target
-/results
