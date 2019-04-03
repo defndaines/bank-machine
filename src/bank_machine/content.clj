@@ -1,12 +1,13 @@
 ;; File Content Manipulation:    --------------------------------------------------------
 (ns bank-machine.content
-  (:require [clojure.java.io :as io :refer [reader]])
-)
+  "File Content Manipulation."
+  (:require [clojure.java.io :as io]))
 
 ;; Functions:    ------------------------------------------------------------------------
 
 (defn get-file-contents [path]
-  (with-open [reader (io/reader path)]
+  (clojure.string/split-lines (slurp path))
+  #_(with-open [reader (io/reader path)]
     (binding [*in* reader]
       (doall
         (reduce conj [] (line-seq reader))
@@ -21,51 +22,30 @@
   this structure.
   @param vector[string]
   @return vector[vector[string]]"
-
-  (def count-of-lines-of-content (count contents))
-  (loop [
-          i 0
-          account-line-collection []
-        ]
-    (if (< i count-of-lines-of-content)
-      (do
-        (def row1 (get contents i))
-        (def row2 (get contents (+ i 1)))
-        (def row3 (get contents (+ i 2)))
-        (def row4 (get contents (+ i 3)))
-        (recur (+ i 4)(conj account-line-collection [row1 row2 row3 row4]))
-      )
-      account-line-collection
-    )
-  )
-)
+  (loop [acc []
+         lines contents]
+    (if (seq lines)
+      (let [[top middle bottom dud & remaining] lines]
+        (recur
+          (conj acc [top middle bottom dud])
+          remaining))
+      acc)))
 
 (defn group-account-line-into-digit-parts [account-line]
   "In an account line, each group of 3 chars represents a portion of a digit.
-  This method organizes an account line into groups of 3 chars in order to mimic
-  this structure.
-   - Note: As per directives for this project, it is safe to assume 27 chars per line, i.e.
-     9 digits per account number.
+  This method organizes an account line into groups of 3 chars in order to
+  mimic this structure.
+  - Note: As per directives for this project, it is safe to assume 27 chars
+    per line, i.e., 9 digits per account number.
   @param string
   @return vector[vector[string]]"
-
-
-  (def count-of-chars-in-account-line 27)
-  (loop [
-          i 0
-          account-line-digit-parts-collection []
-        ]
-    (if (< i count-of-chars-in-account-line)
-      (do
-        (def char1 (str (get account-line i)))
-        (def char2 (str (get account-line (+ i 1))))
-        (def char3 (str (get account-line (+ i 2))))
-        (recur (+ i 3)(conj account-line-digit-parts-collection [(str char1 char2 char3)]))
-      )
-      account-line-digit-parts-collection
-    )
-  )
-)
+  (loop [acc []
+         line account-line]
+    (if (seq line)
+      (recur
+        (conj acc [(subs line 0 3)])
+        (subs line 3))
+      acc)))
 
 (defn make-account-digit-parts-collection [account]
   "An account consists of 4 lines, such that each group of 3 chars in a line represents
@@ -80,14 +60,11 @@
           account-digit-parts-collection []
         ]
     (if (< i 3) ;; skip the 4th line
-      (do
-        (def account-line-digit-parts-collection (group-account-line-into-digit-parts (get account i)))
-        (recur (inc i)(conj account-digit-parts-collection account-line-digit-parts-collection))
-      )
-      account-digit-parts-collection
-    )
-  )
-)
+      (let [account-line-digit-parts-collection (group-account-line-into-digit-parts (get account i))]
+        (recur
+          (inc i)
+          (conj account-digit-parts-collection account-line-digit-parts-collection)))
+      account-digit-parts-collection)))
 
 (defn make-batch-of-account-digit-parts-collections [accounts]
   "An account consists of 4 lines, such that each group of 3 chars in a line represents
